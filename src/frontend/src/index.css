@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Figtree:wght@300..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.09 0.015 260;
+    --foreground: 0.95 0.01 90;
+    --card: 0.13 0.02 260;
+    --card-foreground: 0.95 0.01 90;
+    --popover: 0.13 0.02 260;
+    --popover-foreground: 0.95 0.01 90;
+    --primary: 0.88 0.22 110;
+    --primary-foreground: 0.1 0.02 260;
+    --secondary: 0.2 0.025 260;
+    --secondary-foreground: 0.9 0.01 90;
+    --muted: 0.18 0.02 260;
+    --muted-foreground: 0.6 0.02 260;
+    --accent: 0.65 0.28 350;
+    --accent-foreground: 0.98 0.01 90;
+    --destructive: 0.6 0.25 25;
+    --destructive-foreground: 0.98 0.005 0;
+    --border: 0.22 0.025 260;
+    --input: 0.2 0.02 260;
+    --ring: 0.88 0.22 110;
+    --radius: 0.75rem;
+    --chart-1: 0.88 0.22 110;
+    --chart-2: 0.65 0.28 350;
+    --chart-3: 0.75 0.22 200;
+    --chart-4: 0.8 0.22 60;
+    --chart-5: 0.7 0.2 290;
+    --sidebar: 0.11 0.018 260;
+    --sidebar-foreground: 0.95 0.01 90;
+    --sidebar-primary: 0.88 0.22 110;
+    --sidebar-primary-foreground: 0.1 0.02 260;
+    --sidebar-accent: 0.18 0.025 260;
+    --sidebar-accent-foreground: 0.9 0.01 90;
+    --sidebar-border: 0.22 0.025 260;
+    --sidebar-ring: 0.88 0.22 110;
+
+    /* Card color palette for sound cards */
+    --card-color-0: 0.88 0.22 110; /* electric yellow */
+    --card-color-1: 0.65 0.28 350; /* hot pink */
+    --card-color-2: 0.75 0.22 200; /* cyan */
+    --card-color-3: 0.8 0.22 60; /* orange */
+    --card-color-4: 0.75 0.2 145; /* neon green */
+    --card-color-5: 0.7 0.2 290; /* purple */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background-image: radial-gradient(
+        ellipse 80% 50% at 20% -20%,
+        oklch(0.65 0.28 350 / 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 80% 100%,
+        oklch(0.88 0.22 110 / 0.06) 0%,
+        transparent 60%
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .sound-card-glow {
+    box-shadow: 0 0 20px oklch(var(--glow-color) / 0.25), 0 4px 24px
+      rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .sound-card-glow:hover {
+    box-shadow: 0 0 40px oklch(var(--glow-color) / 0.5), 0 8px 32px
+      rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  .play-btn-pulse {
+    animation: pulse-ring 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 oklch(var(--glow-color) / 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 10px oklch(var(--glow-color) / 0);
+    }
+  }
+
+  .playing-bar {
+    animation: playing-bars 0.8s ease-in-out infinite alternate;
+  }
+
+  .playing-bar:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .playing-bar:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .playing-bar:nth-child(4) {
+    animation-delay: 0.1s;
+  }
+
+  @keyframes playing-bars {
+    from {
+      transform: scaleY(0.3);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+}
